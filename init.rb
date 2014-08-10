@@ -14,6 +14,10 @@ Redmine::Plugin.register :redmine_issue_reports do
     :caption => 'Reports',
     )
 
-  permission :issues_reports, { :issues => [:index, :reports] }, :public => false
+  project_module :reports do
+    permission :issues_reports, {
+      :issues => [:index, :reports]
+    }
+  end
   menu :project_menu, :issues_reports, { :controller => 'issues', :action => 'reports' }, :caption => "Reports", :after => :activity, :param => :project_id
 end
