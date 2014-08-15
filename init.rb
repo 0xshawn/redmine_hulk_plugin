@@ -1,8 +1,15 @@
-Redmine::Plugin.register :redmine_issue_reports do
-  name 'Redmine Issue Reports plugin'
+require 'redmine'
+require 'issues_controller_patch'
+
+Rails.configuration.to_prepare do
+  ApplicationController.send(:include, RedmineHulkPlugin::IssuesControllerPatch)
+end
+
+Redmine::Plugin.register :redmine_hulk_plugin do
+  name 'Redmine Hulk Plugin'
   author 'Shown Tien'
-  description 'Redmine Issue Reports'
-  version '0.0.1'
+  description 'Hulk Plugin for Redmine'
+  version '0.0.2'
   url 'http://github.com/wenxer'
   author_url 'http://github.com/wenxer'
 
@@ -14,6 +21,10 @@ Redmine::Plugin.register :redmine_issue_reports do
     :caption => 'Reports',
     )
 
-  permission :issues_reports, { :issues => [:index, :reports] }, :public => false
-  menu :project_menu, :issues_reports, { :controller => 'issues', :action => 'reports' }, :caption => "Reports", :after => :activity, :param => :project_id
+  project_module :reports do
+    permission :issues_reports, {
+      :issues => [:index, :reports]
+    }
+  end
+  menu :project_menu, :issues_reports, { :controller => 'reports', :action => 'issue_report' }, :caption => "Reports", :after => :activity
 end
