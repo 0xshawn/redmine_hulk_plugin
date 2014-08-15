@@ -9,7 +9,7 @@ Redmine::Plugin.register :redmine_hulk_plugin do
   name 'Redmine Hulk Plugin'
   author 'Shown Tien'
   description 'Hulk Plugin for Redmine'
-  version '0.0.1'
+  version '0.0.2'
   url 'http://github.com/wenxer'
   author_url 'http://github.com/wenxer'
 
