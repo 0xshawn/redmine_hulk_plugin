@@ -33,4 +33,11 @@ module RedmineHulkPlugin
       end
     end
   end
+  module ReportsControllerPatch
+    def self.included(base)
+      base.class_eval do
+        #menu_item :reports
+      end
+    end
+  end
 end
