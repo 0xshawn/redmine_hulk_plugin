@@ -26,5 +26,5 @@ Redmine::Plugin.register :redmine_hulk_plugin do
       :issues => [:index, :reports]
     }
   end
-  menu :project_menu, :issues_reports, { :controller => 'reports', :action => 'issue_report' }, :caption => "Reports", :after => :activity, :param => :project_id
+  menu :project_menu, :issues_reports, { :controller => 'reports', :action => 'issue_report' }, :caption => "Reports", :after => :activity
 end
