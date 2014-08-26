@@ -8,10 +8,9 @@ module RedmineHulkPlugin
           unloadable
 
           acts_as_searchable :columns => ['channel', "channel_account", "account", "role_name", "email", "phone"],
-          :include => [:project],
+          :include => :project,
           # sort by id so that limited eager loading doesn't break with postgresql
-          :order_column => "#{table_name}.id",
-          :permission => nil
+          :order_column => "#{table_name}.id"
 
           acts_as_event :title => Proc.new {|o| "渠道: #{o.channel} 渠道账户: #{o.channel_account}"},
           :url => Proc.new {|o| {:controller => 'issues',
@@ -25,9 +24,13 @@ module RedmineHulkPlugin
           #:type => 'kb_articles',
           #:timestamp => :updated_at
 
-          scope :visible, lambda {|*args|
-            includes(:project).where(Issue.visible_condition(args.shift || User.current, :view_contacts, *args))
-          }
+          #scope :visible, lambda {|*args|
+          #  includes(:project)
+          #}
+          #
+          #def visible?(user=User.current)
+          #  true
+          #end
         end
       end
     end
