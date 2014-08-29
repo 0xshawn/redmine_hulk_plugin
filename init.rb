@@ -1,12 +1,9 @@
 require 'redmine'
 require 'issues_patch'
-require 'contacts_patch'
 
 Rails.configuration.to_prepare do
   #ApplicationController.send(:include, RedmineHulkPlugin::ContactsControllerPatch)
-
-  Contact.send(:include, RedmineHulkPlugin::Patches::Contact)
-  Redmine::Search.available_search_types << 'contacts'
+  #Contact.send(:include, RedmineHulkPlugin::Patches::Contact)
 end
 
 Redmine::Plugin.register :redmine_hulk_plugin do
@@ -22,9 +19,14 @@ Redmine::Plugin.register :redmine_hulk_plugin do
 
   project_module :reports do
     permission :view_reports, {
-      :reports => [:issue_report, :issue_report_details],
+      :reports => [:issue_report, :issue_report_details]
+    }
+    permission :view_contacts, {
+      :contacts => :index
     }
   end
 
   menu :project_menu, :reports, { :controller => :reports, :action => :issue_report }, :caption => "Reports", :after => :activity, :params => :project_id
+
+  Redmine::Search.available_search_types << 'contacts'
 end
