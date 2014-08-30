@@ -8,7 +8,7 @@ class Contact < ActiveRecord::Base
 
   acts_as_event :title => Proc.new {|o| "渠道: #{o.channel} 渠道账户: #{o.channel_account}"},
   :url => Proc.new {|o| {:controller => 'issues', :action => 'show', :id => Issue.find(:all, :conditions => {:contact_id => o.id}).first.id}},
-  :description => Proc.new { |o| "账户: #{o.account}, 角色名: #{o.role_name}, Email: #{o.email}, 电话: #{o.phone}" },
+  :description => Proc.new { |o| "账户: #{o.account}, 角色名: #{o.role_name}, 服务器名称: #{o.server_name}, Email: #{o.email}, 电话: #{o.phone}" },
   :datetime => :created_on
 
   acts_as_searchable :columns => ['channel', "channel_account", "account", "role_name", "email", "phone"],
