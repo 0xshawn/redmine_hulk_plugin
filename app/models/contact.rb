@@ -14,7 +14,8 @@ class Contact < ActiveRecord::Base
   acts_as_searchable :columns => ['channel', "channel_account", "account", "role_name", "email", "phone"],
   :project_key => :project_id,
   :include => :project,
-  :order_column => "#{table_name}.id"
+  :order_column => "#{table_name}.id",
+  :permission => :view_contacts
 
   #acts_as_activity_provider :find_options => {:include => :project},
   #:author_key => :author_id,
