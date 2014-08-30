@@ -11,7 +11,7 @@ class Contact < ActiveRecord::Base
   :description => Proc.new { |o| "账户: #{o.account}, 角色名: #{o.role_name}, 服务器名称: #{o.server_name}, Email: #{o.email}, 电话: #{o.phone}" },
   :datetime => :created_on
 
-  acts_as_searchable :columns => ['channel', "channel_account", "account", "role_name", "email", "phone"],
+  acts_as_searchable :columns => ['channel', "channel_account", "account", "server_name", "role_name", "email", "phone"],
   :project_key => :project_id,
   :include => :project,
   :order_column => "#{table_name}.id",
